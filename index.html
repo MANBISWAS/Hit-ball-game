@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Hit the ball Game</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<style>
+html {
+  height: 100%;
+  width: 100%;
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Gilroy';
+}
+
+section{
+  background-color: green;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
+}
+
+.container{
+  width: 80%;
+  height: 80%;
+  background-color: white;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.upl{
+  height: 20vh;
+  width: 100%;
+  background-color: #05f005;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20vw;
+  font-size: 2.5vw;
+  color: darkolivegreen;
+  font-weight: 900;
+}
+
+  .dowl{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    height: 60vh;
+    width: 100%;
+  }
+.ball {
+  width: 50px;
+  height: 50px;
+  background-color: red;
+  border-radius: 50%;
+  text-align: center;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 900;
+  cursor:pointer;
+}
+ 
+
+</style>
+
+<body>
+<section>
+  <div class="container">
+    <div class="upl">
+      <div class="sview">Score : <span class="score"></span></div>
+      <div class="tview"> Time : <span class="time"></span></div>
+      <div class="hview"> Hit : <span class="hit"></span></div>
+    </div>
+    <div class="dowl"></div>
+  </div>
+</section>
+
+
+  <script>
+    const dowl = document.querySelector(".dowl");
+const hitter = document.querySelector(".hit");
+const timec = document.querySelector(".time");
+
+let clutter = "";
+var score = 0;
+var rnh ;
+
+for (let i = 0; i < 75; i++) {
+  var rn = Math.floor(Math.random() * 10);
+  clutter += `<div class="ball">${rn}</div>`;
+  dowl.innerHTML = clutter;
+}
+
+
+function hit(){
+  rnh = Math.floor(Math.random() * 10);
+  hitter.textContent = rnh;
+}
+
+
+function time(){
+
+let timer = 60;
+let interval = setInterval(function(){
+  timer--;
+  timec.textContent = timer;
+  if (timer === 0){
+    clearInterval(interval);
+    dowl.innerHTML = `<h1>Game Over</h1>`;
+  }
+}, 1000);
+}
+
+function logic(){
+  dowl.addEventListener("click", function(dets){
+     var hn = dets.target.innerText;
+      console.log(rnh,hn);
+        if(hn === rnh.toString()){
+           score += 10;
+            document.querySelector(".score").textContent = score;
+           hit();
+        }
+
+      else{
+        alert("Click the right number")
+      }
+   });
+}
+logic();                       
+time();
+hit();
+</script>
+</body>
+
+</html>
